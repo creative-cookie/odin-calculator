@@ -1,0 +1,104 @@
+
+/*-------------------*/
+/* Custom Properties */
+/*-------------------*/
+
+:root{
+    --clr-primary100: 35, 81%, 96%;
+    --clr-primary200: 34, 100%, 91%;
+    --clr-primary400: 34, 100%, 50%;
+
+    --clr-secondary100: 0, 0%, 97%;
+    --clr-secondary200: 0, 0%, 91%;
+
+    --clr-light: 0, 0%, 99%;
+
+    --fs-900: 4.5rem;
+    --fs-400: 1.125rem;
+    --fs-300: 1rem;
+
+    --fw-700: 700;
+    --fw-400: 400;
+
+    --mt-xs: .25em;
+    --mt-sm: .375em;
+    --mt-md: 1em;
+
+    --border-radius-sm: 5px;
+    --border-radius-md: 10px;
+}
+
+/*-------*/
+/* Reset */
+/*-------*/
+
+body{
+    margin: 0;
+    padding-inline: 1em;
+    min-height: 100vh;
+    font-family: 'Puritan', sans-serif;
+    color: hsl(var(--clr-light));
+    font-size: var(--fs-400);
+    background-color: hsl(var(--clr-primary100));
+}
+
+h1, h2, p{
+    margin: 0;
+    padding: 0;
+}
+
+* { box-sizing: border-box; }
+
+
+/*-----------------*/
+/* Utility Classes */
+/*-----------------*/
+
+/* layout */
+.flex{display: flex;}
+.justify-between{justify-content: space-between;}
+.justify-center{justify-content: center;}
+.flex-wrap{flex-wrap: wrap;}
+.align-center{align-items: center;}
+.gap-sm{gap:2px}
+.br-bl-md{border-bottom-left-radius: var(--border-radius-md)}
+.br-br-md{border-bottom-right-radius: var(--border-radius-md)}
+.br-tl-md{border-top-left-radius: var(--border-radius-md)}
+.br-tr-md{border-top-right-radius: var(--border-radius-md)}
+
+.container{
+    width: 20vw;
+    margin: 0 auto;
+}
+
+.mt-xs{margin-top:var(--mt-xs);}
+.mt-sm{margin-top:var(--mt-sm);}
+.mt-md{margin-top:var(--mt-md);}
+
+.bg-clr-primary200{background-color: hsl(var(--clr-primary200));}
+.bg-clr-primary400{background-color: hsl(var(--clr-primary400));}
+
+.bg-clr-secondary100{background-color: hsl(var(--clr-secondary100));}
+.bg-clr-secondary200{background-color: hsl(var(--clr-secondary200));}
+
+/*------------*/
+/* Components */
+/*------------*/
+.btn{
+    border: none;
+    padding: .5em 1em;
+    font-size: 1.875rem;
+    width: calc(100% * (1/4) - 2px);
+    cursor: pointer;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-bg{
+    background-color: hsl(var(--clr-light));
+    border-radius: var(--border-radius-md);
+    padding: 1em;
+    box-shadow: 5px 5px 5px hsl(var(--clr-secondary200));
+}
