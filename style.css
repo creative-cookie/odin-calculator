@@ -14,13 +14,14 @@
     --clr-dark: 0, 0%, 1%;
 
     --fs-900: 4.5rem;
+    --fs-700: 3rem;
     --fs-400: 1.125rem;
     --fs-300: 1rem;
 
     --fw-700: 700;
     --fw-400: 400;
 
-    --mt-xs: .25em;
+    --mt-xs: .15em;
     --mt-sm: .375em;
     --mt-md: 1em;
 
@@ -73,10 +74,21 @@ h1, h2, p{
 .align-center{align-items: center;}
 .gap-sm{gap:2px}
 
+.mt-xs{margin-top: var(--mt-xs);}
+.mt-md{margin-top: var(--mt-md);}
+
 .br-bl-md{border-bottom-left-radius: var(--border-radius-md)}
 .br-br-md{border-bottom-right-radius: var(--border-radius-md)}
 .br-tl-md{border-top-left-radius: var(--border-radius-md)}
 .br-tr-md{border-top-right-radius: var(--border-radius-md)}
+
+.text-right{text-align:right;}
+.text-dark{color: hsl(var(--clr-dark));}
+
+.fs-300{font-size: var(--fs-300);}
+.fs-400{font-size: var(--fs-400);}
+.fs-700{font-size: var(--fs-700);}
+
 
 .container{
     width: 20vw;
