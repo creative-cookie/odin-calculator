@@ -4,14 +4,14 @@
 /*-------------------*/
 
 :root{
-    --clr-primary100: 35, 81%, 96%;
-    --clr-primary200: 34, 100%, 91%;
+    --clr-primary100: 35, 75%, 96%;
     --clr-primary400: 34, 100%, 50%;
 
     --clr-secondary100: 0, 0%, 97%;
     --clr-secondary200: 0, 0%, 91%;
 
     --clr-light: 0, 0%, 99%;
+    --clr-dark: 0, 0%, 1%;
 
     --fs-900: 4.5rem;
     --fs-400: 1.125rem;
@@ -26,6 +26,17 @@
 
     --border-radius-sm: 5px;
     --border-radius-md: 10px;
+}
+
+.darkmode{
+    --clr-primary100: 0, 0%, 12%;
+    --clr-primary400: 30, 100%, 45%;
+
+    --clr-secondary100: 0, 0%, 13%;
+    --clr-secondary200: 0, 0%, 17%;
+
+    --clr-light: 0, 0%, 8%;
+    --clr-dark: 0, 0%, 90%;
 }
 
 /*-------*/
@@ -61,6 +72,7 @@ h1, h2, p{
 .flex-wrap{flex-wrap: wrap;}
 .align-center{align-items: center;}
 .gap-sm{gap:2px}
+
 .br-bl-md{border-bottom-left-radius: var(--border-radius-md)}
 .br-br-md{border-bottom-right-radius: var(--border-radius-md)}
 .br-tl-md{border-top-left-radius: var(--border-radius-md)}
@@ -94,11 +106,12 @@ h1, h2, p{
     display: flex;
     justify-content: center;
     align-items: center;
+    color: hsl(var(--clr-dark));
 }
 
 .calculator-bg{
     background-color: hsl(var(--clr-light));
     border-radius: var(--border-radius-md);
     padding: 1em;
-    box-shadow: 5px 5px 5px hsl(var(--clr-secondary200));
+    box-shadow: 8px 8px 8px hsla(0, 0%, 10%, 0.1);
 }
