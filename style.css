@@ -110,7 +110,6 @@ h1, h2, p{
 /*------------*/
 .btn{
     border: none;
-    padding: .5em 1em;
     font-size: 1.875rem;
     width: calc(100% * (1/4) - 2px);
     cursor: pointer;
@@ -126,4 +125,15 @@ h1, h2, p{
     border-radius: var(--border-radius-md);
     padding: 1em;
     box-shadow: 8px 8px 8px hsla(0, 0%, 10%, 0.1);
+}
+
+path,
+circle{
+    stroke: hsl(var(--clr-dark));
+}
+
+.icon{
+    background-color: inherit;
+    border: none;
+    padding: 0;
 }
