@@ -23,6 +23,8 @@
     --mt-md: 1em;
 
     --border-radius-md: 10px;
+
+    --transition-delay: 0.2s;
 }
 
 .darkmode{
@@ -48,6 +50,7 @@ body{
     color: hsl(var(--clr-light));
     font-size: var(--fs-400);
     background-color: hsl(var(--clr-primary100));
+    transition: var(--transition-delay);
 }
 
 h1, h2, p{
@@ -69,6 +72,8 @@ h1, h2, p{
 .flex-wrap{flex-wrap: wrap;}
 .align-center{align-items: center;}
 .gap-sm{gap:2px}
+
+.hidden{display: none;}
 
 .container{
     width: 20vw;
@@ -111,6 +116,7 @@ h1, h2, p{
     color: hsl(var(--clr-dark));
     border: none;
     cursor: pointer;
+    transition: var(--transition-delay);
 }
 
 .calculator-bg{
@@ -118,11 +124,13 @@ h1, h2, p{
     background-color: hsl(var(--clr-light));
     border-radius: var(--border-radius-md);
     box-shadow: 8px 8px 8px hsla(0, 0%, 10%, 0.1);
+    transition: var(--transition-delay);
 }
 
 path,
 circle{
     stroke: hsl(var(--clr-dark));
+    transition: var(--transition-delay);
 }
 
 .icon{
@@ -130,6 +138,7 @@ circle{
     background-color: inherit;
     border: none;
     cursor:pointer;
+    transition: var(--transition-delay);
 }
 
 .btn:hover,
