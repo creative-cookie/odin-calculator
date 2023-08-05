@@ -17,6 +17,9 @@ let calculator = {
         if(this.total.toString().length <= 15){
             document.getElementById("total").innerText = parseInt(this.total).toLocaleString();
         }
+        if(this.total.toString().length >= 12){
+            document.getElementById("total").style.fontSize = "var(--fs-600)"
+        }
     }
 
 }
