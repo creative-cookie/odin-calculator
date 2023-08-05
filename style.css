@@ -15,6 +15,7 @@
 
     --fs-900: 4.5rem;
     --fs-700: 3rem;
+    --fs-600: 2.25rem;
     --fs-400: 1.125rem;
     --fs-300: 1rem;
 
@@ -144,4 +145,11 @@ circle{
 .btn:hover,
 .icon:hover{
     opacity: 0.75;
+}
+
+.total-container{
+    height: var(--fs-700);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
