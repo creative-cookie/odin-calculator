@@ -56,8 +56,19 @@ let calculator = {
     operations: {
         clear: () => {
             calculator.total = ""; //reset total
-            document.getElementById("total").style.fontSize = "var(--fs-700)"
+            calculator.resizeOutput();
             document.getElementById("total").innerText = 0; 
+        },
+        backspace: () => {
+            if(calculator.total.length > 1){
+                calculator.total = calculator.total.split('').slice(0, -1).join('');
+                calculator.resizeOutput();
+                document.getElementById("total").innerText = parseInt(calculator.total).toLocaleString();
+            }else{
+                calculator.total = "";
+                calculator.resizeOutput();
+                document.getElementById("total").innerText = 0;
+            }
         },
     },
     enterNumber(e){
@@ -72,7 +83,14 @@ let calculator = {
             document.getElementById("total").innerText = parseInt(this.total).toLocaleString();
         }
         if(this.total.toString().length >= 12){
+            this.resizeOutput();
+        }
+    },
+    resizeOutput(){
+        if(this.total.length >= 12){
             document.getElementById("total").style.fontSize = "var(--fs-600)"
+        } else{
+            document.getElementById("total").style.fontSize = "var(--fs-700)"
         }
     }
 
@@ -83,9 +101,13 @@ document.querySelectorAll(".btn--num").forEach((btn) => {
     btn.addEventListener("click", (e)=>{
         calculator.enterNumber(e);
         calculator.outputTotal();
-})})
+    })
+})
 
 
 //Clear Button Functionality
 document.getElementById("clear").addEventListener("click", calculator.operations.clear);
+
+//Backspace Button Functionality
+document.getElementById("backspace").addEventListener("click", calculator.operations.backspace);
 
