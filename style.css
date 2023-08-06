@@ -126,6 +126,7 @@ h1, h2, p{
     border-radius: var(--border-radius-md);
     box-shadow: 8px 8px 8px hsla(0, 0%, 10%, 0.1);
     transition: var(--transition-delay);
+    position: relative;
 }
 
 path,
@@ -153,3 +154,22 @@ circle{
     justify-content: flex-end;
     align-items: center;
 }
+
+#feedback{
+    position: absolute;
+    top: 0.875em;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: hsl(var(--clr-light));
+    border-radius: var(--border-radius-md);
+    background-color: hsla(var(--clr-dark),0.7);
+    padding: 0.5em 1em;
+    font-size: var(--fs-300);
+    transition: opacity 0.7s ease-in-out;
+    opacity: 0;
+}
+
+#feedback.fade{
+    opacity: 1;
+}
+
