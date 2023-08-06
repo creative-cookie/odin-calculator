@@ -7,11 +7,54 @@ function toggleTheme(){
     document.getElementById("sun").classList.toggle("hidden");
 }
 
+//Fade In/Out Feedback Message
+const feedbackDetails = {
+    opacity: 0,
+}
+
+//reset feedback fade in/out timers
+function resetFeedbackTimer(timer){
+    if(timer){
+        clearInterval(timer);
+        delete timer;
+    }
+}
+
+function fadeFeedback(msg){
+    //Reset timers
+    resetFeedbackTimer(feedbackDetails.intervalFadeInId);
+    resetFeedbackTimer(feedbackDetails.timeoutFadeOutId);
+    resetFeedbackTimer(feedbackDetails.intervalFadeOutId);
+
+    //Fade In
+    feedbackDetails.intervalFadeInId = setInterval(() =>{
+        if(feedbackDetails.opacity < 1){
+            feedbackDetails.opacity += 0.1;
+            msg.style.opacity = feedbackDetails.opacity;
+        }
+    },50)
+
+    //Leave message up for 2.5 seconds then fade out
+    feedbackDetails.timeoutFadeOutId = setTimeout(() => {
+        clearInterval(feedbackDetails.intervalFadeInId);
+        feedbackDetails.intervalFadeOutId = setInterval(() =>{
+            if(feedbackDetails.opacity > 0){
+                feedbackDetails.opacity -= 0.1;
+                msg.style.opacity = feedbackDetails.opacity;
+            }
+        },50)
+    },2500)
+}
+
 //Calculator Object
 let calculator = {
     total: "",
     enterNumber(e){
-        this.total += "" + e.target.innerText;
+        if(this.total.length < 15){
+            this.total += "" + e.target.innerText;
+        }else{
+            fadeFeedback(document.getElementById("feedback"));
+        }
     },
     outputTotal(){
         if(this.total.toString().length <= 15){
