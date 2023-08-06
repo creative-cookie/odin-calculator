@@ -8,42 +8,46 @@ function toggleTheme(){
 }
 
 //Fade In/Out Feedback Message
-const feedbackDetails = {
+const feedback = {
     opacity: 0,
-}
-
-//reset feedback fade in/out timers
-function resetFeedbackTimer(timer){
-    if(timer){
-        clearInterval(timer);
-        delete timer;
-    }
-}
-
-function fadeFeedback(msg){
-    //Reset timers
-    resetFeedbackTimer(feedbackDetails.intervalFadeInId);
-    resetFeedbackTimer(feedbackDetails.timeoutFadeOutId);
-    resetFeedbackTimer(feedbackDetails.intervalFadeOutId);
-
-    //Fade In
-    feedbackDetails.intervalFadeInId = setInterval(() =>{
-        if(feedbackDetails.opacity < 1){
-            feedbackDetails.opacity += 0.1;
-            msg.style.opacity = feedbackDetails.opacity;
+    resetFeedbackTimer(timer){ //reset feedback fade in/out timers
+        if(timer){
+            clearInterval(timer);
+            delete timer;
         }
-    },50)
-
-    //Leave message up for 2.5 seconds then fade out
-    feedbackDetails.timeoutFadeOutId = setTimeout(() => {
-        clearInterval(feedbackDetails.intervalFadeInId);
-        feedbackDetails.intervalFadeOutId = setInterval(() =>{
-            if(feedbackDetails.opacity > 0){
-                feedbackDetails.opacity -= 0.1;
-                msg.style.opacity = feedbackDetails.opacity;
+    },
+    fadeInFeedback(msg){
+        msg.style.display = "block";
+        this.intervalFadeInId = setInterval(() =>{
+            if(this.opacity < 1){
+                this.opacity += 0.1;
+                msg.style.opacity = this.opacity;
             }
         },50)
-    },2500)
+    },
+    fadeOutFeedback(msg){
+        this.timeoutFadeOutId = setTimeout(() => {
+            clearInterval(this.intervalFadeInId);
+            this.intervalFadeOutId = setInterval(() =>{
+                if(this.opacity > 0){
+                    this.opacity -= 0.1;
+                    msg.style.opacity = this.opacity;
+                }
+                if(this.opacity <= 0){
+                    msg.style.display = "none"; //remove from display after fade out
+                    clearInterval(this.timeoutFadeOutId);
+                }
+            },50)
+        },2500)
+    },
+    animateFeedback(msg){ // animate the message fading in then out after 2.5 second delay
+        this.resetFeedbackTimer(this.intervalFadeInId);
+        this.resetFeedbackTimer(this.timeoutFadeOutId);
+        this.resetFeedbackTimer(this.intervalFadeOutId);
+
+        this.fadeInFeedback(msg);
+        this.fadeOutFeedback(msg);
+    }
 }
 
 //Calculator Object
@@ -53,7 +57,7 @@ let calculator = {
         if(this.total.length < 15){
             this.total += "" + e.target.innerText;
         }else{
-            fadeFeedback(document.getElementById("feedback"));
+            feedback.animateFeedback(document.getElementById("feedback"));
         }
     },
     outputTotal(){
