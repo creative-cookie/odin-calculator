@@ -53,6 +53,13 @@ const feedback = {
 //Calculator Object
 let calculator = {
     total: "",
+    operations: {
+        clear: () => {
+            calculator.total = ""; //reset total
+            document.getElementById("total").style.fontSize = "var(--fs-700)"
+            document.getElementById("total").innerText = 0; 
+        },
+    },
     enterNumber(e){
         if(this.total.length < 15){
             this.total += "" + e.target.innerText;
@@ -78,4 +85,7 @@ document.querySelectorAll(".btn--num").forEach((btn) => {
         calculator.outputTotal();
 })})
 
+
+//Clear Button Functionality
+document.getElementById("clear").addEventListener("click", calculator.operations.clear);
 
