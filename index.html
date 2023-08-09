@@ -32,8 +32,8 @@
                     </g>
                 </svg>
             </button>
-            <p class="text-right text-dark fs-400 mt-md"id="history">5 + 10</p>
-            <div class="total-container mt-sm"><p class="text-right text-dark fs-700" id="total">0</p></div>
+            <div class="operation-container mt-md"><p class="text-right text-dark fs-400"id="operation"></p></div>
+            <div class="result-container mt-sm"><p class="text-right text-dark fs-700" id="result">0</p></div>
         </div>
         <div class="flex flex-wrap gap-sm mt-md">
             <!-- row 1 -->
@@ -49,27 +49,27 @@
                 </svg>        
             </button>
             <button type="button" class="btn bg-clr-secondary200">%</button>
-            <button type="button" class="btn bg-clr-secondary200 br-tr-md">&div;</button>
+            <button type="button" class="btn btn--op bg-clr-secondary200 br-tr-md" data-op="divide">&div;</button>
             <!-- row 2 -->
             <button type="button" class="btn btn--num bg-clr-secondary100">7</button>
             <button type="button" class="btn btn--num bg-clr-secondary100">8</button>
             <button type="button" class="btn btn--num bg-clr-secondary100">9</button>
-            <button type="button" class="btn bg-clr-secondary200">&times;</button>
+            <button type="button" class="btn btn--op bg-clr-secondary200" data-op="multiply">&times;</button>
             <!-- row 3 -->
             <button type="button" class="btn btn--num bg-clr-secondary100">4</button>
             <button type="button" class="btn btn--num bg-clr-secondary100">5</button>
             <button type="button" class="btn btn--num bg-clr-secondary100">6</button>
-            <button type="button" class="btn bg-clr-secondary200">&minus;</button>
+            <button type="button" class="btn btn--op bg-clr-secondary200" data-op="subtract">&minus;</button>
             <!-- row 4 -->
             <button type="button" class="btn btn--num bg-clr-secondary100">1</button>
             <button type="button" class="btn btn--num bg-clr-secondary100">2</button>
             <button type="button" class="btn btn--num bg-clr-secondary100">3</button>
-            <button type="button" class="btn bg-clr-secondary200">+</button>
+            <button type="button" class="btn btn--op bg-clr-secondary200" data-op="add">+</button>
             <!-- row 5 -->
             <button type="button" class="btn br-bl-md bg-clr-secondary100">+/-</button>
             <button type="button" class="btn btn--num bg-clr-secondary100">0</button>
             <button type="button" class="btn bg-clr-secondary100">.</button>
-            <button type="button" class="btn br-br-md bg-clr-primary400">=</button>
+            <button type="button" class="btn btn--op br-br-md bg-clr-primary400" data-op="equals">=</button>
         </div>
     </div>
     <script src="script.js"></script>
