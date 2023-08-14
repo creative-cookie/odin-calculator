@@ -44,12 +44,12 @@
 /*-------*/
 
 body{
+    display: grid;
+    place-content: center;
+    min-height: 100vh;
     margin: 0;
     padding-inline: 1em;
-    min-height: 100vh;
-    font-family: 'Puritan', sans-serif;
-    color: hsl(var(--clr-light));
-    font-size: var(--fs-400);
+    font-family: Arial, sans-serif;
     background-color: hsl(var(--clr-primary100));
     transition: var(--transition-delay);
 }
@@ -60,7 +60,6 @@ h1, h2, p{
 }
 
 * { box-sizing: border-box; }
-
 
 /*-----------------*/
 /* Utility Classes */
@@ -75,11 +74,6 @@ h1, h2, p{
 .gap-sm{gap:2px}
 
 .hidden{display: none;}
-
-.container{
-    width: 20vw;
-    margin: 0 auto;
-}
 
 .mt-xs{margin-top:var(--mt-xs);}
 .mt-sm{margin-top:var(--mt-sm);}
@@ -107,20 +101,12 @@ h1, h2, p{
 /*------------*/
 /* Components */
 /*------------*/
-.btn{
-    display: flex;
+.calculator-container{
+    display: grid;
     justify-content: center;
-    align-items: center;
-    width: calc(100% * (1/4) - 2px);
-    aspect-ratio: 1/1;
-    font-size: 1.875rem;
-    color: hsl(var(--clr-dark));
-    border: none;
-    cursor: pointer;
-    transition: var(--transition-delay);
-}
-
-.calculator-bg{
+    align-content: center;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(100px, auto) repeat(5, 100px);
     padding: 1em;
     background-color: hsl(var(--clr-light));
     border-radius: var(--border-radius-md);
@@ -129,6 +115,30 @@ h1, h2, p{
     position: relative;
 }
 
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.875rem;
+    color: hsl(var(--clr-dark));
+    border: 1px solid hsl(var(--clr-light));
+    cursor: pointer;
+    transition: var(--transition-delay);
+}
+
+.btn--dark{
+    background-color: hsl(var(--clr-secondary200));
+}
+
+.btn--light{
+    background-color: hsl(var(--clr-secondary100));
+}
+
+.btn--accent{
+    background-color: hsl(var(--clr-primary400));
+}
+
+/* For SVG icons */
 path,
 circle{
     stroke: hsl(var(--clr-dark));
@@ -148,11 +158,18 @@ circle{
     opacity: 0.75;
 }
 
+.output,
+.icon{
+    grid-column: 1/-1;
+}
+
+
 .operation-container,
 .result-container{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-bottom: .5rem;
 }
 
 .operation-container{

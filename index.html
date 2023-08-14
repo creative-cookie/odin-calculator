@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="style.css">
     <title>The Odin Project - Calculator Challenge</title>
 </head>
-<body class="flex align-center justify-center">
-    <div class="container calculator-bg">
-        <div>
+<body>
+    <div class="calculator-container">
+        <div class="output">
             <div id="feedback">15-Digit Limit</div>
             <button type="button" class="icon" id="theme-icon">
                 <!--Moon-->
@@ -32,13 +32,12 @@
                     </g>
                 </svg>
             </button>
-            <div class="operation-container mt-md"><p class="text-right text-dark fs-400"id="operation"></p></div>
-            <div class="result-container mt-sm"><p class="text-right text-dark fs-700" id="result">0</p></div>
+            <div class="operation-container mt-md"><p class="text-right text-dark fs-400"id="operation">5 + 5</p></div>
+            <div class="result-container"><p class="text-right text-dark fs-700" id="result">0</p></div>
         </div>
-        <div class="flex flex-wrap gap-sm mt-md">
             <!-- row 1 -->
-            <button type="button" class="btn bg-clr-secondary200 br-tl-md" id="clear">C</button>
-            <button type="button" class="btn bg-clr-secondary200" id="backspace">
+            <button type="button" class="btn btn--dark br-tl-md" data-clear>C</button>
+            <button type="button" class="btn btn--dark" data-backspace>
                 <!-- Backspace Icon -->
                 <svg version="1.1" height="1em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="#000" stroke-width="30">
@@ -48,29 +47,28 @@
                     </g>
                 </svg>        
             </button>
-            <button type="button" class="btn bg-clr-secondary200">%</button>
-            <button type="button" class="btn btn--op bg-clr-secondary200 br-tr-md" data-op="divide">&div;</button>
+            <button type="button" class="btn btn--dark">%</button>
+            <button type="button" class="btn btn--dark br-tr-md" data-op>&div;</button>
             <!-- row 2 -->
-            <button type="button" class="btn btn--num bg-clr-secondary100">7</button>
-            <button type="button" class="btn btn--num bg-clr-secondary100">8</button>
-            <button type="button" class="btn btn--num bg-clr-secondary100">9</button>
-            <button type="button" class="btn btn--op bg-clr-secondary200" data-op="multiply">&times;</button>
+            <button type="button" class="btn btn--light">7</button>
+            <button type="button" class="btn btn--light">8</button>
+            <button type="button" class="btn btn--light">9</button>
+            <button type="button" class="btn btn--dark" data-op>&times;</button>
             <!-- row 3 -->
-            <button type="button" class="btn btn--num bg-clr-secondary100">4</button>
-            <button type="button" class="btn btn--num bg-clr-secondary100">5</button>
-            <button type="button" class="btn btn--num bg-clr-secondary100">6</button>
-            <button type="button" class="btn btn--op bg-clr-secondary200" data-op="subtract">&minus;</button>
+            <button type="button" class="btn btn--light">4</button>
+            <button type="button" class="btn btn--light">5</button>
+            <button type="button" class="btn btn--light">6</button>
+            <button type="button" class="btn btn--dark" data-op>&minus;</button>
             <!-- row 4 -->
-            <button type="button" class="btn btn--num bg-clr-secondary100">1</button>
-            <button type="button" class="btn btn--num bg-clr-secondary100">2</button>
-            <button type="button" class="btn btn--num bg-clr-secondary100">3</button>
-            <button type="button" class="btn btn--op bg-clr-secondary200" data-op="add">+</button>
+            <button type="button" class="btn btn--light">1</button>
+            <button type="button" class="btn btn--light">2</button>
+            <button type="button" class="btn btn--light">3</button>
+            <button type="button" class="btn btn--dark" data-op>+</button>
             <!-- row 5 -->
-            <button type="button" class="btn br-bl-md bg-clr-secondary100">+/-</button>
-            <button type="button" class="btn btn--num bg-clr-secondary100">0</button>
-            <button type="button" class="btn bg-clr-secondary100">.</button>
-            <button type="button" class="btn btn--op br-br-md bg-clr-primary400" data-op="equals">=</button>
-        </div>
+            <button type="button" class="btn btn--light br-bl-md">+/-</button>
+            <button type="button" class="btn btn--light">0</button>
+            <button type="button" class="btn btn--light">.</button>
+            <button type="button" class="btn btn--accent br-br-md" data-equals>=</button>
     </div>
     <script src="script.js"></script>
 </body>
