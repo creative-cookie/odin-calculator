@@ -1,3 +1,14 @@
+//Global Variables, DOM Elements
+const numBtns = document.querySelectorAll("[data-num");
+const opBtns = document.querySelectorAll("[data-op]");
+const clearBtn = document.querySelector("[data-clear]");
+const backspaceBtn = document.querySelector("[data-backspace]");
+const percentBtn = document.querySelector("[data-percent]");
+const negateBtn = document.querySelector("[data-negate]");
+const equalsBtn = document.querySelector("[data-equals]");
+const previousValTxtEl = document.querySelector("[data-previous-value");
+const currentValTxtEl = document.querySelector("[data-current-value");
+
 // Dark Mode Functionality
 document.getElementById("theme-icon").addEventListener("click", toggleTheme);
 
@@ -52,126 +63,100 @@ const feedback = {
 }
 
 //Calculator Object
-let calculator = {
-    result: "",
-    entry: "",
-    operation: "",
-    num1: "",
-    num2: "",
-    operator: "",
-    operations: {
-        clear: () => {
-            calculator.result = ""; //reset result
-            calculator.operation = ""; //reset operation
-            calculator.num1 = "";
-            calculator.num2 = "";
-            calculator.operator = "";
-            calculator.resizeOutput('0');
-            document.getElementById("result").innerText = 0; 
-            document.getElementById("operation").innerText = calculator.operation; 
-        },
-        backspace: () => {
-            if(calculator.result.length > 1){
-                calculator.result = calculator.result.split('').slice(0, -1).join(''); //remove last entered digit
-                calculator.resizeOutput();
-                document.getElementById("result").innerText = calculator.formatNumber(calculator.result);
-            }else{
-                calculator.result = ""; //reset result
-                calculator.resizeOutput();
-                document.getElementById("result").innerText = 0; 
-            }
-        },
-        add: (a,b) => a + b,
-        subtract: (a,b) => a - b,
-        divide: (a,b) => a / b,
-        multiply: (a,b) => a * b,
-    },
-    formatOperator(op){
-        let operator;
-        switch(op){
-            case "add":
-                operator = "+";
-                break;
-            case "subtract":
-                operator = "&minus;";
-                break;
-            case "divide":
-                operator = "&div;";
-                break;
-            case "multiply":
-                operator = "&times;";
-                break;
-            case "equals":
-                operator = "=";
-        }
-        return operator;
-    },
-    calculateNumber(e){
-        this.result = this.operations[this.operator](+this.num1, +this.num2).toString();
-        document.getElementById("result").innerHTML = this.formatNumber(this.result);
-        this.num1 = this.result;
-        this.num2 = "";
-        this.operator = `${e.target.dataset.op}`
-        this.operation = `${this.formatNumber(this.result)} ${this.formatOperator(this.operator)}`
-        document.getElementById("operation").innerHTML = this.operation;
-    },
-    enterNumber(e){
-        if(!this.operator && this.num1.length < 15){ 
-                this.num1 += "" + e.target.innerText;
-                this.outputResult(this.num1);
-        } else if(this.operator && this.num2.length < 15){
-            this.num2 += "" + e.target.innerText;
-            this.outputResult(this.num2);
-        } else{
-            feedback.animateFeedback(document.getElementById("feedback"));
-        }
-    },
-    enterOperator(e){
-        if(this.operator && this.num1 && this.num2) {
-            this.calculateNumber(e);
-        } else{
-            this.operator = `${e.target.dataset.op}`
-            this.operation = `${this.formatNumber(this.num1)} ${this.formatOperator(this.operator)}`
-            document.getElementById("operation").innerHTML = this.operation;
-        }
-    },
-    outputResult(num){
-        if(num.length <= 15){
-            document.getElementById("result").innerText = this.formatNumber(num);
-        }
-        if(num.length >= 12){
-            this.resizeOutput(num);
-        }
-    },
-    resizeOutput(num){//resize font size based on how many digits have been entered
-        if(num.length >= 12){
-            document.getElementById("result").style.fontSize = "var(--fs-600)"
-        } else{
-            document.getElementById("result").style.fontSize = "var(--fs-700)"
-        }
-    },
-    formatNumber(num){
-        return parseInt(num).toLocaleString();
+function Calculator(previousValTxtEl, currentValTxtEl){
+    this.previousValTxtEl = previousValTxtEl;
+    this.currentValTxtEl = currentValTxtEl;
+    
+    this.clear = function(){
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.operator = undefined;
     }
+
+    this.backspace = function(){
+
+    }
+
+    this.appendNum = function(num){
+        if(num === '.' && this.currentOperand.includes('.')) return;
+        this.currentOperand += num.toString();
+    }
+
+    this.setOperator = function(operator){
+
+    }
+
+    this.compute = function(){
+
+    }
+
+    this.updateDisplay = function(){
+        this.currentValTxtEl.innerText = this.currentOperand;
+    }
+
+    this.clear();
+
+    // enterNumber(e){
+    //     if(!this.operator && this.num1.length < 15){ 
+    //             this.num1 += "" + e.target.innerText;
+    //             this.outputResult(this.num1);
+    //     } else if(this.operator && this.num2.length < 15){
+    //         this.num2 += "" + e.target.innerText;
+    //         this.outputResult(this.num2);
+    //     } else{
+    //         feedback.animateFeedback(document.getElementById("feedback"));
+    //     }
+    // },
+    // enterOperator(e){
+    //     if(this.operator && this.num1 && this.num2) {
+    //         this.calculateNumber(e);
+    //     } else{
+    //         this.operator = `${e.target.dataset.op}`
+    //         this.operation = `${this.formatNumber(this.num1)} ${this.formatOperator(this.operator)}`
+    //         document.getElementById("operation").innerHTML = this.operation;
+    //     }
+    // },
+    // outputResult(num){
+    //     if(num.length <= 15){
+    //         document.getElementById("result").innerText = this.formatNumber(num);
+    //     }
+    //     if(num.length >= 12){
+    //         this.resizeOutput(num);
+    //     }
+    // },
+    // resizeOutput(num){//resize font size based on how many digits have been entered
+    //     if(num.length >= 12){
+    //         document.getElementById("result").style.fontSize = "var(--fs-600)"
+    //     } else{
+    //         document.getElementById("result").style.fontSize = "var(--fs-700)"
+    //     }
+    // },
+    // formatNumber(num){
+    //     return parseInt(num).toLocaleString();
+    // }
 
 }
 
+//Create New Calculator Object
+const calculator = new Calculator(previousValTxtEl, currentValTxtEl);
+
 //Number Button Functionality
-document.querySelectorAll(".btn--num").forEach((btn) => {
+numBtns.forEach((btn) => {
     btn.addEventListener("click", (e)=>{
-        calculator.enterNumber(e);
+        calculator.appendNum(btn.innerText);
+        calculator.updateDisplay()
     })
 })
 
-//Clear Button Functionality
-document.getElementById("clear").addEventListener("click", calculator.operations.clear);
+// //Clear Button Functionality
+// document.getElementById("clear").addEventListener("click", calculator.operations.clear);
 
-//Backspace Button Functionality
-document.getElementById("backspace").addEventListener("click", calculator.operations.backspace);
+// //Backspace Button Functionality
+// document.getElementById("backspace").addEventListener("click", calculator.operations.backspace);
 
-//Operator Button Functionality
-document.querySelectorAll(".btn--op").forEach((btn)=>{
-    btn.addEventListener("click", (e)=>{
-        calculator.enterOperator(e);
-    })
-})
+// //Operator Button Functionality
+// document.querySelectorAll(".btn--op").forEach((btn)=>{
+//     btn.addEventListener("click", (e)=>{
+//         calculator.enterOperator(e);
+//     })
+// })
