@@ -74,7 +74,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.backspace = function(){
-
+        this.currentOperand = this.currentOperand.toString().slice(0,-1);
     }
 
     this.appendNum = function(num){
@@ -83,15 +83,70 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.setOperator = function(operator){
+        if(this.currentOperand === '') return
+        if(this.previousOperand !== '') { this.compute() }
 
+        this.operator = operator;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = '';
     }
 
     this.compute = function(){
+        let result;
+        let prev = parseFloat(this.previousOperand);
+        let current = parseFloat(this.currentOperand);
 
+        if(isNaN(prev) || isNaN(current)) return
+
+        switch(this.operator){
+            case '+':
+                result = prev + current;
+                break;
+            case '−':
+                result = prev - current;
+                break;
+            case '×':
+                result = prev * current;
+                break;
+            case '÷':
+                result = prev / current;
+                break; 
+            default:
+                return;
+        }
+
+        this.previousOperand = '';
+        this.operator = undefined;
+        this.currentOperand = result;
+    }
+
+    this.formatDisplayNumber = function(number){
+        const stringNum = number.toString();
+        const intNum = parseFloat(stringNum.split('.')[0]);
+        const decimalNum = stringNum.split('.')[1];
+        let intDisplayNum;
+        
+        if(isNaN(intNum)){
+            intDisplayNum = '';
+        } else{
+            intDisplayNum = intNum.toLocaleString('en', {maximumFractionDigits: 0})
+        }
+
+        if(decimalNum){
+            return `${intDisplayNum}.${decimalNum}`;
+        } else{
+            return intDisplayNum;
+        }
     }
 
     this.updateDisplay = function(){
-        this.currentValTxtEl.innerText = this.currentOperand;
+        this.currentValTxtEl.innerText = this.formatDisplayNumber(this.currentOperand);
+        if(this.operator != undefined){
+            this.previousValTxtEl.innerText = 
+            `${this.formatDisplayNumber(this.previousOperand)} ${this.operator}`; 
+        }else{
+            this.previousValTxtEl.innerText = '';
+        }
     }
 
     this.clear();
@@ -105,15 +160,6 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     //         this.outputResult(this.num2);
     //     } else{
     //         feedback.animateFeedback(document.getElementById("feedback"));
-    //     }
-    // },
-    // enterOperator(e){
-    //     if(this.operator && this.num1 && this.num2) {
-    //         this.calculateNumber(e);
-    //     } else{
-    //         this.operator = `${e.target.dataset.op}`
-    //         this.operation = `${this.formatNumber(this.num1)} ${this.formatOperator(this.operator)}`
-    //         document.getElementById("operation").innerHTML = this.operation;
     //     }
     // },
     // outputResult(num){
@@ -131,10 +177,6 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     //         document.getElementById("result").style.fontSize = "var(--fs-700)"
     //     }
     // },
-    // formatNumber(num){
-    //     return parseInt(num).toLocaleString();
-    // }
-
 }
 
 //Create New Calculator Object
@@ -142,21 +184,30 @@ const calculator = new Calculator(previousValTxtEl, currentValTxtEl);
 
 //Number Button Functionality
 numBtns.forEach((btn) => {
-    btn.addEventListener("click", (e)=>{
+    btn.addEventListener("click", ()=>{
         calculator.appendNum(btn.innerText);
-        calculator.updateDisplay()
+        calculator.updateDisplay();
     })
 })
 
-// //Clear Button Functionality
-// document.getElementById("clear").addEventListener("click", calculator.operations.clear);
+opBtns.forEach((btn) => {
+    btn.addEventListener("click", ()=>{
+        calculator.setOperator(btn.innerText);
+        calculator.updateDisplay();
+    })
+})
 
-// //Backspace Button Functionality
-// document.getElementById("backspace").addEventListener("click", calculator.operations.backspace);
+equalsBtn.addEventListener('click', () =>{
+    calculator.compute();
+    calculator.updateDisplay();
+})
 
-// //Operator Button Functionality
-// document.querySelectorAll(".btn--op").forEach((btn)=>{
-//     btn.addEventListener("click", (e)=>{
-//         calculator.enterOperator(e);
-//     })
-// })
+clearBtn.addEventListener('click', () =>{
+    calculator.clear();
+    calculator.updateDisplay();
+})
+
+backspaceBtn.addEventListener('click', () =>{
+    calculator.backspace();
+    calculator.updateDisplay();
+})
