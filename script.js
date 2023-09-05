@@ -68,7 +68,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     this.currentValTxtEl = currentValTxtEl;
     
     this.clear = function(){
-        this.currentOperand = '';
+        this.currentOperand = '0';
         this.previousOperand = '';
         this.operator = undefined;
     }
@@ -120,7 +120,19 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.currentOperand = result;
     }
 
-    this.formatDisplayNumber = function(number){
+    this.formatPrevOperand = function(number){
+        const stringNum = number.toString();
+        const intNum = parseFloat(stringNum.split('.')[0]).toLocaleString('en');
+        const decimalNum = stringNum.split('.')[1];
+
+        if(decimalNum){
+            return `${intNum}.${decimalNum}`; 
+        } else{
+            return intNum;
+        }
+    }
+
+    this.formatCurrentOperand = function(number){
         const stringNum = number.toString();
         const intNum = parseFloat(stringNum.split('.')[0]);
         const decimalNum = stringNum.split('.')[1];
@@ -131,8 +143,8 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         } else{
             intDisplayNum = intNum.toLocaleString('en', {maximumFractionDigits: 0})
         }
-
-        if(decimalNum){
+        
+        if(decimalNum != null){
             return `${intDisplayNum}.${decimalNum}`;
         } else{
             return intDisplayNum;
@@ -140,10 +152,10 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.updateDisplay = function(){
-        this.currentValTxtEl.innerText = this.formatDisplayNumber(this.currentOperand);
+        this.currentValTxtEl.innerText = this.formatCurrentOperand(this.currentOperand);
         if(this.operator != undefined){
             this.previousValTxtEl.innerText = 
-            `${this.formatDisplayNumber(this.previousOperand)} ${this.operator}`; 
+            `${this.formatPrevOperand(this.previousOperand)} ${this.operator}`; 
         }else{
             this.previousValTxtEl.innerText = '';
         }
