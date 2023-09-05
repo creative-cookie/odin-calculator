@@ -122,13 +122,11 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
     this.formatPrevOperand = function(number){
         const stringNum = number.toString();
-        const intNum = parseFloat(stringNum.split('.')[0]).toLocaleString('en');
-        const decimalNum = stringNum.split('.')[1];
-
-        if(decimalNum){
-            return `${intNum}.${decimalNum}`; 
+        
+        if(stringNum.charAt(stringNum.length-1) === '.'){
+            return parseInt(stringNum.slice(0,-1)).toLocaleString('en'); //remove decimal point if no digit was entered after it
         } else{
-            return intNum;
+            return parseFloat(number).toLocaleString('en');
         }
     }
 
@@ -137,14 +135,16 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         const intNum = parseFloat(stringNum.split('.')[0]);
         const decimalNum = stringNum.split('.')[1];
         let intDisplayNum;
-        
+
         if(isNaN(intNum)){
             intDisplayNum = '';
         } else{
             intDisplayNum = intNum.toLocaleString('en', {maximumFractionDigits: 0})
         }
-        
-        if(decimalNum != null){
+
+        if(!intDisplayNum && stringNum.includes('.')){
+            return `0.${decimalNum}` //add zero before decimal if no digit was entered
+        } else if(decimalNum != null){
             return `${intDisplayNum}.${decimalNum}`;
         } else{
             return intDisplayNum;
