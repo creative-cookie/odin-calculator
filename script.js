@@ -79,7 +79,12 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
     this.appendNum = function(num){
         if(num === '.' && this.currentOperand.includes('.')) return;
+
         this.currentOperand += num.toString();
+
+        if(num === '.' && this.currentOperand.split('').indexOf('.') === 0){ //add 0 before decimal if no digits were entered before it
+            this.currentOperand = '0.';
+        } 
     }
 
     this.setOperator = function(operator){
@@ -146,9 +151,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
             intDisplayNum = intNum.toLocaleString('en', {maximumFractionDigits: 0})
         }
 
-        if(!intDisplayNum && stringNum.includes('.')){
-            return `0.${decimalNum}` //add zero before decimal if no digit was entered
-        } else if(decimalNum != null){
+        if(decimalNum != null){
             return `${intDisplayNum}.${decimalNum}`;
         } else{
             return intDisplayNum;
