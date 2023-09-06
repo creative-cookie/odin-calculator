@@ -79,8 +79,13 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
     this.appendNum = function(num){
         if(num === '.' && this.currentOperand.includes('.')) return;
-
-        this.currentOperand += num.toString();
+        
+        if(this.isResult){ //check if currentOperand is result of operation 
+            this.currentOperand = num.toString(); //replace currentOperand with new input instead of concatenating onto result
+            this.isResult = false;
+        } else{
+            this.currentOperand += num.toString();
+        }
 
         if(num === '.' && this.currentOperand.split('').indexOf('.') === 0){ //add 0 before decimal if no digits were entered before it
             this.currentOperand = '0.';
@@ -98,6 +103,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.operator = operator;
         this.previousOperand = this.currentOperand;
         this.currentOperand = '';
+        this.isResult = false;
     }
 
     this.compute = function(){
@@ -127,6 +133,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.previousOperand = '';
         this.operator = undefined;
         this.currentOperand = result;
+        this.isResult = true;
     }
 
     this.formatPrevOperand = function(number){
