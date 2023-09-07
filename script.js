@@ -8,6 +8,7 @@ const negateBtn = document.querySelector("[data-negate]");
 const equalsBtn = document.querySelector("[data-equals]");
 const previousValTxtEl = document.querySelector("[data-previous-value]");
 const currentValTxtEl = document.querySelector("[data-current-value]");
+const charLimitMsg = document.getElementById("feedback");
 
 // Dark Mode Functionality
 document.getElementById("theme-icon").addEventListener("click", toggleTheme);
@@ -79,6 +80,12 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.appendNum = function(num){
+        //if currentOperand is 15 digits long, prevent additional digits from being input
+        if(this.currentOperand.length >= 15){
+            feedback.animateFeedback(charLimitMsg);
+            return;
+        }
+
         if(num === '.' && this.currentOperand.includes('.')) return;
         
         if(this.isResult || this.currentOperand === '0'){ //check if currentOperand is result of operation or 0
@@ -186,26 +193,6 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.clear();
-
-    // enterNumber(e){
-    //     if(!this.operator && this.num1.length < 15){ 
-    //             this.num1 += "" + e.target.innerText;
-    //             this.outputResult(this.num1);
-    //     } else if(this.operator && this.num2.length < 15){
-    //         this.num2 += "" + e.target.innerText;
-    //         this.outputResult(this.num2);
-    //     } else{
-    //         feedback.animateFeedback(document.getElementById("feedback"));
-    //     }
-    // },
-    // outputResult(num){
-    //     if(num.length <= 15){
-    //         document.getElementById("result").innerText = this.formatNumber(num);
-    //     }
-    //     if(num.length >= 12){
-    //         this.resizeOutput(num);
-    //     }
-    // },
 }
 
 //Create New Calculator Object
