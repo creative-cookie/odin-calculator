@@ -6,8 +6,8 @@ const backspaceBtn = document.querySelector("[data-backspace]");
 const percentBtn = document.querySelector("[data-percent]");
 const negateBtn = document.querySelector("[data-negate]");
 const equalsBtn = document.querySelector("[data-equals]");
-const previousValTxtEl = document.querySelector("[data-previous-value");
-const currentValTxtEl = document.querySelector("[data-current-value");
+const previousValTxtEl = document.querySelector("[data-previous-value]");
+const currentValTxtEl = document.querySelector("[data-current-value]");
 
 // Dark Mode Functionality
 document.getElementById("theme-icon").addEventListener("click", toggleTheme);
@@ -74,14 +74,15 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.backspace = function(){
+        //if(this.isResult) return; //prevent backspace on result of operation
         this.currentOperand = this.currentOperand.toString().slice(0,-1);
     }
 
     this.appendNum = function(num){
         if(num === '.' && this.currentOperand.includes('.')) return;
         
-        if(this.isResult){ //check if currentOperand is result of operation 
-            this.currentOperand = num.toString(); //replace currentOperand with new input instead of concatenating onto result
+        if(this.isResult || this.currentOperand === '0'){ //check if currentOperand is result of operation or 0
+            this.currentOperand = num.toString(); //replace currentOperand with new input instead of concatenating onto result or 0
             this.isResult = false;
         } else{
             this.currentOperand += num.toString();
@@ -166,12 +167,21 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.updateDisplay = function(){
+        this.resizeDisplay();
         this.currentValTxtEl.innerText = this.formatCurrentOperand(this.currentOperand);
         if(this.operator != undefined){
             this.previousValTxtEl.innerText = 
             `${this.formatPrevOperand(this.previousOperand)} ${this.operator}`; 
         }else{
             this.previousValTxtEl.innerText = '';
+        }
+    }
+
+    this.resizeDisplay = function(){//resize font size based on how many digits have been entered
+        if(this.currentOperand.length >= 12){
+            this.currentValTxtEl.style.fontSize = "var(--fs-600)"
+        } else{
+           this.currentValTxtEl.style.fontSize = "var(--fs-700)"
         }
     }
 
@@ -194,13 +204,6 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     //     }
     //     if(num.length >= 12){
     //         this.resizeOutput(num);
-    //     }
-    // },
-    // resizeOutput(num){//resize font size based on how many digits have been entered
-    //     if(num.length >= 12){
-    //         document.getElementById("result").style.fontSize = "var(--fs-600)"
-    //     } else{
-    //         document.getElementById("result").style.fontSize = "var(--fs-700)"
     //     }
     // },
 }
