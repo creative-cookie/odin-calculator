@@ -74,7 +74,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.backspace = function(){
-        //if(this.isResult) return; //prevent backspace on result of operation
+        if(this.isResult) return; //prevent backspace on result of operation
         this.currentOperand = this.currentOperand.toString().slice(0,-1);
     }
 
