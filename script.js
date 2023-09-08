@@ -77,11 +77,22 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     this.backspace = function(){
         if(this.isResult) return; //prevent backspace on result of operation
         this.currentOperand = this.currentOperand.toString().slice(0,-1);
+        if(this.currentOperand === '-' || this.currentOperand == '') this.currentOperand = '0';
+    }
+
+    this.changeSign = function(){
+        if(this.currentOperand == '0' || this.currentOperand === '') return;
+
+        if(this.currentOperand.toString()[0] === '-'){
+            this.currentOperand = this.currentOperand.toString().slice(1);
+        } else{
+            this.currentOperand = '-' + this.currentOperand;
+        }
     }
 
     this.appendNum = function(num){
         //if currentOperand is 15 digits long, prevent additional digits from being input
-        if(this.currentOperand.length >= 15){
+        if(this.isMaxLength()){
             feedback.animateFeedback(charLimitMsg);
             return;
         }
@@ -192,6 +203,18 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         }
     }
 
+    this.isMaxLength = function(){
+        let digits;
+
+        if(this.currentOperand[0] === '-'){
+            digits = this.currentOperand.slice(1); // don't take '-' sign into account
+        } else{
+            digits = this.currentOperand;
+        }
+
+        return (digits.length >= 15) ? true : false;
+    }
+
     this.clear();
 }
 
@@ -225,5 +248,10 @@ clearBtn.addEventListener('click', () =>{
 
 backspaceBtn.addEventListener('click', () =>{
     calculator.backspace();
+    calculator.updateDisplay();
+})
+
+signChangeBtn.addEventListener('click', ()=>{
+    calculator.changeSign();
     calculator.updateDisplay();
 })
