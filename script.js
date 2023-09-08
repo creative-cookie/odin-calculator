@@ -90,6 +90,14 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         }
     }
 
+    this.convertToPercentage = function(){
+        if(this.previousOperand === ''){
+            this.currentOperand = parseFloat(this.currentOperand) / 100;
+        } else {
+            this.currentOperand = (parseFloat(this.currentOperand) / 100) * parseFloat(this.previousOperand);
+        }
+    }
+
     this.appendNum = function(num){
         //if currentOperand is 15 digits long, prevent additional digits from being input
         if(this.isMaxLength()){
@@ -234,6 +242,11 @@ opBtns.forEach((btn) => {
         calculator.setOperator(btn.innerText);
         calculator.updateDisplay();
     })
+})
+
+percentBtn.addEventListener('click', () =>{
+    calculator.convertToPercentage();
+    calculator.updateDisplay();
 })
 
 equalsBtn.addEventListener('click', () =>{
