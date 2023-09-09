@@ -165,12 +165,14 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
     this.formatPrevOperand = function(number){
         const stringNum = number.toString();
+        const intNum = parseFloat(stringNum.split('.')[0]).toLocaleString('en');
+        const decimalNum = stringNum.split('.')[1];
         
-        if(stringNum.charAt(stringNum.length-1) === '.'){
-            return parseInt(stringNum.slice(0,-1)).toLocaleString('en'); //remove decimal point if no digit was entered after it
-        } else{
-            return parseFloat(number).toLocaleString('en');
-        }
+        if(stringNum.charAt(stringNum.length-1) === '.' || decimalNum == null){ //remove decimal point if no digit was entered after it
+            return intNum;
+        } else {
+            return `${intNum}.${decimalNum}`;
+        } 
     }
 
     this.formatCurrentOperand = function(number){
