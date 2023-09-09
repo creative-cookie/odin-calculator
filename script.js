@@ -159,7 +159,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
         this.previousOperand = '';
         this.operator = undefined;
-        this.currentOperand = result;
+        this.currentOperand = result.toPrecision(15);
         this.isResult = true;
     }
 
