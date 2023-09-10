@@ -101,7 +101,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.appendNum = function(num){
-        //if currentOperand is 15 digits long, prevent additional digits from being input
+        //if currentOperand is 15 digits long and not the result of an operation, prevent additional digits from being input
         if(this.isMaxLength(this.currentOperand, this.maxInputLength) && !this.isResult){
             feedback.animateFeedback(charLimitMsg);
             return;
@@ -182,10 +182,15 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         let intDisplayNum;
 
         if(isNaN(intNum)){
-            intDisplayNum = 
-                `${parseInt(this.previousOperand).toLocaleString('en')}` +
-                `${this.previousOperand.toString().split('.')[1] ? '.' : ''}` +
-                `${this.previousOperand.toString().split('.')[1] || ''}`;
+            //if currentOperand hasn't been entered yet, show previousOperand
+            if(this.isMaxLength(this.previousOperand, this.maxOutputLength)){
+                return parseFloat(this.previousOperand).toExponential(5);
+            } else {
+                intDisplayNum = 
+                    `${parseInt(this.previousOperand).toLocaleString('en')}` +
+                    `${this.previousOperand.toString().split('.')[1] ? '.' : ''}` +
+                    `${this.previousOperand.toString().split('.')[1] || ''}`;
+            }
         } else{
             intDisplayNum = intNum.toLocaleString('en');
         }
