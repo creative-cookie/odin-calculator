@@ -102,7 +102,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
     this.appendNum = function(num){
         //if currentOperand is 15 digits long, prevent additional digits from being input
-        if(this.isMaxLength(this.currentOperand, this.maxInputLength)){
+        if(this.isMaxLength(this.currentOperand, this.maxInputLength) && !this.isResult){
             feedback.animateFeedback(charLimitMsg);
             return;
         }
