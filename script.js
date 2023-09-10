@@ -164,10 +164,8 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.removeDecimal = function(number){  
-        const stringNum = number.toString();
-
-        if(stringNum.charAt(stringNum.length-1) === '.'){ //remove decimal point if no digit was entered after it
-            return stringNum.slice(0,-1);
+        if(number.charAt(number.length-1) === '.'){ //remove decimal point if no digit was entered after it
+            return number.slice(0,-1);
         } else{
             return number;
         }
