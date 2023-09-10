@@ -122,7 +122,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.setOperator = function(operator){
-        if(this.currentOperand === ''){ // allow for change in operator if currentOperand is not set
+        if(this.isResult){ // allow for change in operator if currentOperand is not set
             this.operator = operator;
             return;
         }
