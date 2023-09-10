@@ -206,7 +206,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.resizeDisplay = function(){//resize font size based on how many digits have been entered
-        if(this.currentOperand.length >= 12){
+        if(this.isMaxLength(this.currentOperand, 12)){
             this.currentValTxtEl.style.fontSize = "var(--fs-600)"
         } else{
            this.currentValTxtEl.style.fontSize = "var(--fs-700)"
