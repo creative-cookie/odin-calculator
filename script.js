@@ -175,7 +175,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
         this.previousOperand = '';
         this.operator = undefined;
-        this.currentOperand = parseFloat(result.toPrecision(21));
+        this.currentOperand = parseFloat(result.toPrecision(15));
         this.isResult = true;
     }
 
