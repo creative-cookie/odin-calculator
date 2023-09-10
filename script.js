@@ -67,6 +67,8 @@ const feedback = {
 function Calculator(previousValTxtEl, currentValTxtEl){
     this.previousValTxtEl = previousValTxtEl;
     this.currentValTxtEl = currentValTxtEl;
+    this.maxInputLength = 15;
+    this.maxOutputLength = 18;
     
     this.clear = function(){
         this.currentOperand = '0';
@@ -100,7 +102,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
     this.appendNum = function(num){
         //if currentOperand is 15 digits long, prevent additional digits from being input
-        if(this.isMaxLength()){
+        if(this.isMaxLength(this.currentOperand, this.maxInputLength)){
             feedback.animateFeedback(charLimitMsg);
             return;
         }
@@ -172,7 +174,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.formatOperand = function(number){
-        if(number.toString().length > 15) return parseFloat(number).toExponential(5);
+        if(this.isMaxLength(number, this.maxOutputLength)) return parseFloat(number).toExponential(5);
 
         const stringNum = number.toString();
         const intNum = parseInt(stringNum.split('.')[0]);
@@ -211,13 +213,14 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         }
     }
 
-    this.isMaxLength = function(){
+    this.isMaxLength = function(number, maxLength){
         //don't take decimal or sign into account
-        let digits = this.currentOperand.replace('-', '')
+        let digits = number.toString()
+                    .replace('-', '')
                     .replace('.', '')
                     .length; 
 
-        return (digits >= 15) ? true : false;
+        return (digits >= maxLength) ? true : false;
     }
 
     this.clear();
