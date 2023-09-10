@@ -143,6 +143,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
     this.compute = function(){
         if(this.isDividedByZero) this.clear();
+
         if(this.currentOperand == '0' && this.operator === '÷'){
             this.isDividedByZero = true;
             return;
@@ -177,14 +178,6 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.isResult = true;
     }
 
-    this.removeDecimal = function(number){  
-        if(number.charAt(number.length-1) === '.'){ //remove decimal point if no digit was entered after it
-            return number.slice(0,-1);
-        } else{
-            return number;
-        }
-    }
-
     this.formatOperand = function(number){
         if(this.isMaxLength(number, this.maxOutputLength)) return parseFloat(number).toExponential(5);
 
@@ -200,7 +193,9 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         }
 
         if(decimalNum != null){
-            return `${intDisplayNum}.${decimalNum}`;
+            return  `${intDisplayNum}` +
+                    `${(this.isResult && !decimalNum || this.previousOperand && !decimalNum) ? '' : '.'}` +
+                    `${decimalNum}`;
         } else{
             return intDisplayNum;
         }
@@ -216,8 +211,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.resizeDisplay();
         this.currentValTxtEl.innerText = this.formatOperand(this.currentOperand);
         if(this.operator != undefined){
-            this.previousValTxtEl.innerText = 
-            `${this.removeDecimal(this.formatOperand(this.previousOperand))} ${this.operator}`; 
+            this.previousValTxtEl.innerText = `${this.formatOperand(this.previousOperand)} ${this.operator}`; 
         }else{
             this.previousValTxtEl.innerText = '';
         }
