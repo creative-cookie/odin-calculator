@@ -138,7 +138,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     this.compute = function(){
         let result;
         let prev = parseFloat(this.previousOperand);
-        let current = parseFloat(this.currentOperand);
+        let current = parseFloat(this.currentOperand) || parseFloat(this.previousOperand);
 
         if(isNaN(prev) || isNaN(current)) return
 
@@ -182,7 +182,10 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         let intDisplayNum;
 
         if(isNaN(intNum)){
-            intDisplayNum = '';
+            intDisplayNum = 
+                `${parseInt(this.previousOperand).toLocaleString('en')}` +
+                `${this.previousOperand.toString().split('.')[1] ? '.' : ''}` +
+                `${this.previousOperand.toString().split('.')[1] || ''}`;
         } else{
             intDisplayNum = intNum.toLocaleString('en');
         }
@@ -206,7 +209,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.resizeDisplay = function(){//resize font size based on how many digits have been entered
-        if(this.isMaxLength(this.currentOperand, 12)){
+        if(this.isMaxLength(this.currentOperand || this.previousOperand, 12)){
             this.currentValTxtEl.style.fontSize = "var(--fs-600)"
         } else{
            this.currentValTxtEl.style.fontSize = "var(--fs-700)"
