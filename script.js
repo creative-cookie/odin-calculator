@@ -268,3 +268,46 @@ signChangeBtn.addEventListener('click', ()=>{
     calculator.changeSign();
     calculator.updateDisplay();
 })
+
+//Keyboard Support
+document.addEventListener('keydown', (e) =>{
+    const operators = {'/': '÷', '*': '×', '-': '−', '+': '+'}
+
+    switch (true){
+        case (!isNaN(e.key)):
+        case (e.key === '.'):
+            e.preventDefault();
+            calculator.appendNum(e.key);
+            break;
+        case (operators.hasOwnProperty(e.key)):
+            e.preventDefault();
+            calculator.setOperator(operators[e.key]);
+            break;
+        case (e.key === 'Enter'):
+        case (e.key === '='):
+            e.preventDefault();
+            calculator.compute();
+            break;
+        case (e.key === 'Backspace'):
+            e.preventDefault();
+            calculator.backspace();
+            break;
+        case (e.key === 'Escape'):
+        case (e.key === 'Delete'):
+            e.preventDefault();
+            calculator.clear();
+            break;
+        case (e.key === '%'):
+            e.preventDefault();
+            calculator.convertToPercentage();
+            break;
+        case (e.key === 'F9'):
+            e.preventDefault();
+            calculator.changeSign();
+            break;
+        default:
+            break;
+    }
+
+    calculator.updateDisplay();
+})
