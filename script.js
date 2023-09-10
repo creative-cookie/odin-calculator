@@ -114,17 +114,17 @@ function Calculator(previousValTxtEl, currentValTxtEl){
             feedback.animateFeedback(charLimitMsg);
             return;
         }
-
-        if(num === '.' && this.currentOperand.includes('.')) return;
         
         if(this.isResult || this.currentOperand === '0'){ //check if currentOperand is result of operation or 0
             this.currentOperand = num.toString(); //replace currentOperand with new input instead of concatenating onto result or 0
             this.isResult = false;
+        } else if(num === '.' && this.currentOperand.toString().includes('.')){
+            return;
         } else{
             this.currentOperand += num.toString();
         }
 
-        if(num === '.' && this.currentOperand.split('').indexOf('.') === 0){ //add 0 before decimal if no digits were entered before it
+        if(num === '.' && this.currentOperand.toString().split('').indexOf('.') === 0){ //add 0 before decimal if no digits were entered before it
             this.currentOperand = '0.';
         } 
     }
@@ -179,6 +179,14 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.isResult = true;
     }
 
+    this.removeDecimal = function(number){
+        if(number.charAt(number.length - 1) === '.'){
+            return number.slice(0,-1);
+        } else{
+            return number;
+        }
+    }
+
     this.formatOperand = function(number){
         if(this.isMaxLength(number, this.maxOutputLength)) return parseFloat(number).toExponential(5);
 
@@ -194,9 +202,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         }
 
         if(decimalNum != null){
-            return  `${intDisplayNum}` +
-                    `${(this.isResult && !decimalNum || this.previousOperand && !decimalNum) ? '' : '.'}` +
-                    `${decimalNum}`;
+            return `${intDisplayNum}.${decimalNum}`;
         } else{
             return intDisplayNum;
         }
@@ -212,7 +218,8 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.resizeDisplay();
         this.currentValTxtEl.innerText = this.formatOperand(this.currentOperand);
         if(this.operator != undefined){
-            this.previousValTxtEl.innerText = `${this.formatOperand(this.previousOperand)} ${this.operator}`; 
+            this.previousValTxtEl.innerText = 
+                `${this.removeDecimal(this.formatOperand(this.previousOperand))} ${this.operator}`; 
         }else{
             this.previousValTxtEl.innerText = '';
         }
