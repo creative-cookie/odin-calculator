@@ -74,15 +74,19 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.currentOperand = '0';
         this.previousOperand = '';
         this.operator = undefined;
+        this.isDividedByZero = false;
+        this.enableBtns();
     }
 
     this.backspace = function(){
+        if(this.isDividedByZero) this.clear();
         if(this.isResult) return; //prevent backspace on result of operation
         this.currentOperand = this.currentOperand.toString().slice(0,-1);
         if(this.currentOperand === '-' || this.currentOperand == '') this.currentOperand = '0';
     }
 
     this.changeSign = function(){
+        if(this.isDividedByZero) return;
         if(this.currentOperand == '0' || this.currentOperand === '' || this.isResult) return;
 
         if(this.currentOperand.toString()[0] === '-'){
@@ -93,6 +97,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.convertToPercentage = function(){
+        if(this.isDividedByZero) return;
         if(this.previousOperand === ''){
             this.currentOperand = parseFloat(this.currentOperand) / 100;
         } else {
@@ -101,6 +106,8 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.appendNum = function(num){
+        if(this.isDividedByZero) this.clear();
+
         //if currentOperand is 15 digits long and not the result of an operation, prevent additional digits from being input
         if(this.isMaxLength(this.currentOperand, this.maxInputLength) && !this.isResult){
             feedback.animateFeedback(charLimitMsg);
@@ -135,6 +142,12 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.compute = function(){
+        if(this.isDividedByZero) this.clear();
+        if(this.currentOperand == '0' && this.operator === '÷'){
+            this.isDividedByZero = true;
+            return;
+        }
+
         let result;
         let prev = parseFloat(this.previousOperand);
         let current = parseFloat(this.currentOperand) || parseFloat(this.previousOperand);
@@ -194,6 +207,12 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.updateDisplay = function(){
+        if(this.isDividedByZero){
+            this.currentValTxtEl.innerText = 'Cannot divide by zero';
+            this.currentValTxtEl.style.fontSize = "var(--fs-600)";
+            this.disableBtns();
+            return;
+        } 
         this.resizeDisplay();
         this.currentValTxtEl.innerText = this.formatOperand(this.currentOperand);
         if(this.operator != undefined){
@@ -220,6 +239,22 @@ function Calculator(previousValTxtEl, currentValTxtEl){
                     .length; 
 
         return (digits >= maxLength) ? true : false;
+    }
+
+    this.disableBtns = function(){
+        opBtns.forEach((btn) => {
+            btn.disabled = true;
+        })
+        percentBtn.disabled = true;
+        signChangeBtn.disabled = true;
+    }
+
+    this.enableBtns = function(){
+        opBtns.forEach((btn) => {
+            btn.disabled = false;
+        })
+        percentBtn.disabled = false;
+        signChangeBtn.disabled = false;
     }
 
     this.clear();
