@@ -105,6 +105,11 @@ h1, h2, p{
     transition: var(--transition-delay);
 }
 
+.btn:disabled{
+    opacity: 0.25;
+    cursor: default;
+}
+
 .btn--dark{
     background-color: hsl(var(--clr-secondary200));
 }
@@ -132,8 +137,8 @@ circle{
     transition: var(--transition-delay);
 }
 
-.btn:hover,
-.icon:hover{
+.btn:hover:enabled,
+.icon:hover:enabled{
     opacity: 0.75;
 }
 
