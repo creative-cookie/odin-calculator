@@ -83,7 +83,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.changeSign = function(){
-        if(this.currentOperand == '0' || this.currentOperand === '') return;
+        if(this.currentOperand == '0' || this.currentOperand === '' || this.isResult) return;
 
         if(this.currentOperand.toString()[0] === '-'){
             this.currentOperand = this.currentOperand.toString().slice(1);
