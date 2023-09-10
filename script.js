@@ -163,28 +163,26 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.isResult = true;
     }
 
-    this.formatPrevOperand = function(number){
+    this.removeDecimal = function(number){  
         const stringNum = number.toString();
-        const intNum = parseFloat(stringNum.split('.')[0]).toLocaleString('en');
-        const decimalNum = stringNum.split('.')[1];
-        
-        if(stringNum.charAt(stringNum.length-1) === '.' || decimalNum == null){ //remove decimal point if no digit was entered after it
-            return intNum;
-        } else {
-            return `${intNum}.${decimalNum}`;
-        } 
+
+        if(stringNum.charAt(stringNum.length-1) === '.'){ //remove decimal point if no digit was entered after it
+            return stringNum.slice(0,-1);
+        } else{
+            return number;
+        }
     }
 
-    this.formatCurrentOperand = function(number){
+    this.formatOperand = function(number){
         const stringNum = number.toString();
-        const intNum = parseFloat(stringNum.split('.')[0]);
+        const intNum = parseInt(stringNum.split('.')[0]);
         const decimalNum = stringNum.split('.')[1];
         let intDisplayNum;
 
         if(isNaN(intNum)){
             intDisplayNum = '';
         } else{
-            intDisplayNum = intNum.toLocaleString('en', {maximumFractionDigits: 0})
+            intDisplayNum = intNum.toLocaleString('en');
         }
 
         if(decimalNum != null){
@@ -196,10 +194,10 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
     this.updateDisplay = function(){
         this.resizeDisplay();
-        this.currentValTxtEl.innerText = this.formatCurrentOperand(this.currentOperand);
+        this.currentValTxtEl.innerText = this.formatOperand(this.currentOperand);
         if(this.operator != undefined){
             this.previousValTxtEl.innerText = 
-            `${this.formatPrevOperand(this.previousOperand)} ${this.operator}`; 
+            `${this.removeDecimal(this.formatOperand(this.previousOperand))} ${this.operator}`; 
         }else{
             this.previousValTxtEl.innerText = '';
         }
