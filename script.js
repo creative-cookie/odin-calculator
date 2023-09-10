@@ -174,6 +174,8 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.formatOperand = function(number){
+        if(number.toString().length > 15) return parseFloat(number).toExponential(5);
+
         const stringNum = number.toString();
         const intNum = parseInt(stringNum.split('.')[0]);
         const decimalNum = stringNum.split('.')[1];
