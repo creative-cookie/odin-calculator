@@ -75,6 +75,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         this.previousOperand = '';
         this.operator = undefined;
         this.isDividedByZero = false;
+        this.isResult = false;
         this.enableBtns();
     }
 
@@ -129,7 +130,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.setOperator = function(operator){
-        if(this.isResult){ // allow for change in operator if currentOperand is not set
+        if(this.isResult && this.previousOperand){ // allow for change in operator if currentOperand is not set
             this.operator = operator;
             return;
         }
