@@ -212,15 +212,12 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.isMaxLength = function(){
-        let digits;
+        //don't take decimal or sign into account
+        let digits = this.currentOperand.replace('-', '')
+                    .replace('.', '')
+                    .length; 
 
-        if(this.currentOperand[0] === '-'){
-            digits = this.currentOperand.slice(1); // don't take '-' sign into account
-        } else{
-            digits = this.currentOperand;
-        }
-
-        return (digits.length >= 15) ? true : false;
+        return (digits >= 15) ? true : false;
     }
 
     this.clear();
