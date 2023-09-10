@@ -131,8 +131,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
 
         this.operator = operator;
         this.previousOperand = this.currentOperand;
-        this.currentOperand = '';
-        this.isResult = false;
+        this.isResult = true;
     }
 
     this.compute = function(){
@@ -182,15 +181,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         let intDisplayNum;
 
         if(isNaN(intNum)){
-            //if currentOperand hasn't been entered yet, show previousOperand
-            if(this.isMaxLength(this.previousOperand, this.maxOutputLength)){
-                return parseFloat(this.previousOperand).toExponential(5);
-            } else {
-                intDisplayNum = 
-                    `${parseInt(this.previousOperand).toLocaleString('en')}` +
-                    `${this.previousOperand.toString().split('.')[1] ? '.' : ''}` +
-                    `${this.previousOperand.toString().split('.')[1] || ''}`;
-            }
+            intDisplayNum = '';
         } else{
             intDisplayNum = intNum.toLocaleString('en');
         }
