@@ -22,6 +22,7 @@ Some additional features include:
 * A backspace button that will remove one digit at a time of the current operand
 * A percentage button that will either convert the current operand to its percentage equivalent (current operand divided by 100) if another operand hasn't been previously entered or it will change the current operand to the entered percentage of the previous operand.
 * A sign change button that will change the current operand from positive to negative or from negative to positive
+* A message will fade in/out when the 15-digit input limit is reached
 * Keyboard support that will allow users to use their keyboard to input numbers and select operators. All buttons on the calculator are supported by keyboard input.
 
 Furthermore, since it seems to be common to have dark theme/light theme toggle buttons on applications and websites these days, I wanted to incorporate this in this project as well. As such, a moon icon can be seen in the top-left-hand corner of the calculator display. Clicking the moon icon will display the calculator app in dark theme and the moon icon will become a sun icon. Clicking the sun icon will return the application back to light theme.
@@ -33,6 +34,7 @@ I've learned many things throughout my time working on this project, including:
     * How to optimize SVGs created in Inkscape
     * How to style SVGs via CSS
 * How to utilize CSS variables to create light/dark themes
+* How to add CSS transitions to gradually change from one style to the next
 * How to use grid to layout the buttons in the calculator
 * When to choose a switch statement over if/else
 * How to add keyboard event listener and the usage of e.key and e.code
