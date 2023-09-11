@@ -98,7 +98,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
     }
 
     this.convertToPercentage = function(){
-        if(this.isDividedByZero) return;
+        if(this.isResult) return;
         if(this.previousOperand === ''){
             this.currentOperand = parseFloat(this.currentOperand) / 100;
         } else {
