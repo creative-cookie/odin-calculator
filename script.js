@@ -194,6 +194,7 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         const intNum = parseInt(stringNum.split('.')[0]);
         const decimalNum = stringNum.split('.')[1];
         let intDisplayNum;
+        let displayNum;
 
         if(isNaN(intNum)){
             intDisplayNum = '';
@@ -202,9 +203,15 @@ function Calculator(previousValTxtEl, currentValTxtEl){
         }
 
         if(decimalNum != null){
-            return `${intDisplayNum}.${decimalNum}`;
+            displayNum = `${intDisplayNum}.${decimalNum}`;
         } else{
-            return intDisplayNum;
+            displayNum = intDisplayNum;
+        }
+
+        if(this.isResult){
+            return this.removeDecimal(displayNum); //remove unnecessary decimal point if needed
+        } else{
+            return displayNum;
         }
     }
 
